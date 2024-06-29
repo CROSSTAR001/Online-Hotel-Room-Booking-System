@@ -11,6 +11,12 @@ This is a Hotel Room Booking System built using Streamlit, SQLAlchemy, and Postg
 - Background image with reduced opacity
 - Custom favicon and tab name
 
+## Database Configuration
+
+- Create a database names 'hotel_management'
+- run the TABLE.sql file using PgAdmin
+- App/config.py includes the database name, userid and password (or you can edit it out for your own)
+
 ## Installation
 
 1. Clone the repository:
