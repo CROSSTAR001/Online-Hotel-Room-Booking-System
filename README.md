@@ -20,7 +20,7 @@ This is a Hotel Room Booking System built using Streamlit, SQLAlchemy, and Postg
 
 2. Create and activate a virtual environment (optional but recommended):
 
-      python -m venv venv
+      python -m venv venv  <br>
       source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
 3. Install the required packages:
