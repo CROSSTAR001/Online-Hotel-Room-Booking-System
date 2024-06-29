@@ -15,7 +15,7 @@ This is a Hotel Room Booking System built using Streamlit, SQLAlchemy, and Postg
 
 1. Clone the repository:
 
-      git clone https://github.com/CROSSTAR001/hotel-booking-system.git
+      git clone https://github.com/CROSSTAR001/hotel-booking-system.git  <br>
       cd hotel-booking-system
 
 2. Create and activate a virtual environment (optional but recommended):
