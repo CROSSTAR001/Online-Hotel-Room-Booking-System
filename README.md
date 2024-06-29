@@ -24,15 +24,10 @@ This is a Hotel Room Booking System built using Streamlit, SQLAlchemy, and Postg
       git clone https://github.com/CROSSTAR001/hotel-booking-system.git  <br>
       cd hotel-booking-system
 
-2. Create and activate a virtual environment (optional but recommended):
-
-      python -m venv venv  <br>
-      source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-
-3. Install the required packages:
+2. Install the required packages:
 
       pip install -r requirements.txt
 
-4. Run the Streamlit application:
+3. Run the Streamlit application:
 
       streamlit run app.py
