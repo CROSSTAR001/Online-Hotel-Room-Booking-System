@@ -1,5 +1,5 @@
 import streamlit as st
-from database import session, Room, Booking, Payment, Review, User
+from database import session, Room, Booking, Payment, Review, Cancellation, User
 from datetime import date, timedelta
 
 def user_dashboard(user):
@@ -8,7 +8,6 @@ def user_dashboard(user):
 
     task = st.selectbox("Task", ["View Available Rooms", "View Booking History", "Leave a Review"])
 
-    # Handle each task accordingly
     if task == "View Available Rooms":
         st.subheader("Available Rooms")
         rooms = session.query(Room).all()
@@ -64,7 +63,29 @@ def user_dashboard(user):
         bookings = session.query(Booking).filter(Booking.user_id == user.user_id).all()
         if bookings:
             for booking in bookings:
-                st.text(f"Booking ID: {booking.booking_id}, Room No: {booking.room_no}, Check-in: {booking.check_in_date}, Check-out: {booking.check_out_date}, Amount: {booking.total_amount}")
+                cancellation = session.query(Cancellation).filter(Cancellation.booking_id == booking.booking_id).first()
+                if cancellation:
+                    status = "Cancelled"
+                else:
+                    status = "Active"
+
+                st.text(f"Booking ID: {booking.booking_id}, Room No: {booking.room_no}, Check-in: {booking.check_in_date}, Check-out: {booking.check_out_date}, Amount: {booking.total_amount}, Status: {status}")
+                
+                if not cancellation:
+                    if st.button(f"Cancel Booking {booking.booking_id}", key=f"cancel_{booking.booking_id}"):
+                        st.session_state.selected_booking_id = booking.booking_id
+
+                if "selected_booking_id" in st.session_state and st.session_state.selected_booking_id == booking.booking_id:
+                    reason = st.text_area("Reason for Cancellation", key=f"reason_{booking.booking_id}")
+                    if st.button("Submit Cancellation", key=f"submit_cancel_{booking.booking_id}"):
+                        new_cancellation = Cancellation(
+                            user_id=booking.user_id,
+                            booking_id=booking.booking_id,
+                            reason=reason
+                        )
+                        session.add(new_cancellation)
+                        session.commit()
+                        st.experimental_rerun()
                 st.text("---")
         else:
             st.text("No bookings done")
